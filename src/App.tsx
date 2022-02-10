@@ -9,13 +9,14 @@ import SplitPane from "react-split-pane";
 import GridLayout from "react-grid-layout";
 import gridStyle from "./css/grid.module.css";
 import styled from "styled-components";
+import BasicTabs from "./components/BasicTabs";
 import "./App.css";
 
 function App() {
   const GridParent = styled.div`
     display: grid;
     grid-template-columns: 250px 1fr 250px;
-    grid-template-rows: 50px repeat(2, 1fr) 50px;
+    grid-template-rows: 50px 150px 1fr 50px;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     height: 100vh;
@@ -28,7 +29,10 @@ function App() {
     grid-area: 2 / 1 / 4 / 2;
   `;
   const GridMainView = styled.div`
-    grid-area: 2 / 2 / 4 / 3;
+    grid-area: 3 / 2 / 4 / 3;
+  `;
+  const GridMainUpperView = styled.div`
+    grid-area: 2 / 2 / 3 / 3;
   `;
   const GridRightMenu = styled.div`
     grid-area: 2 / 3 / 4 / 4;
@@ -53,10 +57,24 @@ function App() {
             sx={{
               width: "100%",
               height: "100%",
-              backgroundColor: "primary.light",
+            }}
+          >
+            <BasicTabs labels={["Folder", "Playlist"]}>
+              <div>aa</div>
+              <div>bb</div>
+              <div>cc</div>
+            </BasicTabs>
+          </Box>
+        </GridLeftMenu>
+        <GridMainUpperView>
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "secondary.main",
             }}
           ></Box>
-        </GridLeftMenu>
+        </GridMainUpperView>
         <GridMainView>
           <Box
             sx={{
