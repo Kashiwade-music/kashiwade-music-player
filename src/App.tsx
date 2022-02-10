@@ -1,20 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
-import tauriCircles from "./tauri.svg";
-import tauriWord from "./wordmark.svg";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import gridStyle from "./css/grid.module.css";
 import styled from "styled-components";
 import BasicTabs from "./components/BasicTabs";
 import { Button } from "@mui/material";
-// With the Tauri API npm package:
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
-// With the Tauri global script, enabled when `tauri.conf.json > build > withGlobalTauri` is set to true:
 
 function App() {
+  let config;
+  invoke("get_lanch_config").then((message) => {
+    config = message;
+    console.log(message);
+  });
+  console.log(config);
+
   const GridParent = styled.div`
     display: grid;
     grid-template-columns: 250px 1fr 250px;
