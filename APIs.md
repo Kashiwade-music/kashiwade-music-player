@@ -11,67 +11,42 @@ const config = {
 ```
 
 ## Left Menu
-### getDirData
+### getDirData()
 指定フォルダの内容を取得する時の帰り値
 音楽データではないものや、再帰的に中に音楽データが含まれていないものは除外する
 
 ```ts
 declare module namespace {
-    export interface RootObject {
+    export interface DirData {
         name: string;
         fullPath: string;
         isDir: boolean;
-        lowerFolderContent: RootObject[];
+        depth: number;
     }
+    export interface RootObject {
+        currentDirPath: string;
+        dirData: DirData[];
+    }
+
 }
 ```
 
 ```js
 const dirData = {
-    [
-        {
-            name: "Sample Folder",
-            fullPath: "C:Users/username/Music/Sample Folder",
-            isDir: true,
-            lowerFolderContent: []
-        },
-        {
-            name: "Sample Folder 2",
-            fullPath: "C:Users/username/Music/Sample Folder 2",
-            isDir: true,
-            lowerFolderContent: [
-                {
-                    name: "Sample Folder",
-                    fullPath: "C:Users/username/Music/Sample Folder 2/Sample Folder",
-                    isDir: true,
-                    lowerFolderContent: []
-                },
-                {
-                    name: "Sample Folder 2",
-                    fullPath: "C:Users/username/Music/Sample Folder 2/Sample Folder 2",
-                    isDir: true,
-                    lowerFolderContent: [
-                        {
-                            name: "Sample Folder",
-                            fullPath: "C:Users/username/Music/Sample Folder 2/Sample Folder",
-                            isDir: true,
-                            lowerFolderContent: []
-                        }
-                        
-                    ]
-                },
-                {
-                    name: "mymusic.mp3",
-                    fullPath: "C:Users/username/Music/Sample Folder 2/mymusic.mp3",
-                    isDir: false,
-                },
-            ]
-        },
-        {
-            name: "mymusic.mp3",
-            fullPath: "C:Users/username/Music/mymusic.mp3",
-            isDir: false,
-        },
-    ]
+   currentDirPath: "",
+   dirData: [
+       {
+           name: "",
+           fullPath: "",
+           isDir: true,
+           depth: 1,
+       },
+       {
+           name: "",
+           fullPath: "",
+           isDir: true,
+           depth: 1,
+       }
+   ]
 }
 ```

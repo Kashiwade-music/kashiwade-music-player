@@ -5,12 +5,14 @@ import tauriWord from "./wordmark.svg";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import SplitPane from "react-split-pane";
-import GridLayout from "react-grid-layout";
 import gridStyle from "./css/grid.module.css";
 import styled from "styled-components";
 import BasicTabs from "./components/BasicTabs";
+import { Button } from "@mui/material";
+// With the Tauri API npm package:
+import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
+// With the Tauri global script, enabled when `tauri.conf.json > build > withGlobalTauri` is set to true:
 
 function App() {
   const GridParent = styled.div`
@@ -21,7 +23,6 @@ function App() {
     grid-row-gap: 0px;
     height: 100vh;
   `;
-
   const GridTopMenu = styled.div`
     grid-area: 1 / 1 / 2 / 4;
   `;
@@ -60,7 +61,21 @@ function App() {
             }}
           >
             <BasicTabs labels={["Folder", "Playlist"]}>
-              <div>aa</div>
+              <div>
+                <Button
+                  onClick={() => {
+                    invoke("get_dir_data", {
+                      dirPath: "c:/Users/ryo/Music",
+                    }).then((rustMsg) => {
+                      console.log(rustMsg);
+
+                      console.log(JSON.stringify(rustMsg));
+                    });
+                  }}
+                >
+                  test
+                </Button>
+              </div>
               <div>bb</div>
               <div>cc</div>
             </BasicTabs>
