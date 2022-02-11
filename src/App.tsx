@@ -8,13 +8,19 @@ import * as initialObj from "./module/initialObj";
 import "./App.css";
 import FolderList from "./components/FolderList";
 import { width } from "@mui/system";
+import isJsonString from "./module/isJsonString";
 
 function App() {
   const [config, setConfig] = useState<api.Config>(initialObj.config);
   useEffect(() => {
     const getLanchConfig = async () => {
-      const initialState = JSON.parse(await invoke("get_lanch_config"));
-      setConfig(initialState);
+      const initialData = await invoke("get_lanch_config");
+      console.log(initialData);
+      if (isJsonString(initialData as string)) {
+        setConfig(JSON.parse(initialData as string));
+      } else {
+        setConfig(initialData as any);
+      }
     };
     getLanchConfig();
   }, []);
@@ -67,12 +73,18 @@ function App() {
             <BasicTabs labels={["Folder", "Playlist"]}>
               <div>
                 {config.musicDataFolderPath.map((item) => {
-                  return <div>{item}</div>;
-                  //return <FolderList dirPath={item} />;
+                  return <FolderList dirPath={item} />;
                 })}
               </div>
-              <div>bb</div>
-              <div>cc</div>
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "primary.dark",
+                }}
+              >
+                test
+              </Box>
             </BasicTabs>
           </Box>
         </GridLeftMenu>
