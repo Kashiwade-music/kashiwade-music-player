@@ -3,26 +3,16 @@ import Box from "@mui/material/Box";
 import styled from "styled-components";
 import BasicTabs from "./components/BasicTabs";
 import { Button } from "@mui/material";
-import { invoke } from "@tauri-apps/api/tauri";
 import * as initialObj from "./module/initialObj";
 import "./App.css";
 import FolderList from "./components/FolderList";
 import { width } from "@mui/system";
-import isJsonString from "./module/isJsonString";
+import getAPI from "./module/getAPI";
 
 function App() {
   const [config, setConfig] = useState<api.Config>(initialObj.config);
   useEffect(() => {
-    const getLanchConfig = async () => {
-      const initialData = await invoke("get_lanch_config");
-      console.log(initialData);
-      if (isJsonString(initialData as string)) {
-        setConfig(JSON.parse(initialData as string));
-      } else {
-        setConfig(initialData as any);
-      }
-    };
-    getLanchConfig();
+    getAPI("get_lanch_config", setConfig);
   }, []);
 
   const GridParent = styled.div`
