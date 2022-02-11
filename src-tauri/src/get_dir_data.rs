@@ -4,12 +4,18 @@ use walkdir::WalkDir;
 
 #[tauri::command]
 pub fn get_dir_data(dir_path: String) -> serde_json::Value {
+  println!("det_dir_data was called. path : {}", dir_path);
   let mut root_object = json!({
       "currentDirPath": "",
       "dirData": []
   });
   root_object["currentDirPath"] = serde_json::Value::String(dir_path.to_string());
-  for entry in WalkDir::new(dir_path).into_iter().filter_map(|e| e.ok()) {
+  for entry in WalkDir::new(dir_path)
+    .max_depth(1)
+    .into_iter()
+    .filter_map(|e| e.ok())
+  {
+    println!("{}", entry.path().display());
     let mut dir_data = json!({
         "name": "",
         "fullPath": "",
