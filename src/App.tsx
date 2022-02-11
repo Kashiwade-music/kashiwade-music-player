@@ -6,6 +6,8 @@ import { Button } from "@mui/material";
 import { invoke } from "@tauri-apps/api/tauri";
 import * as initialObj from "./module/initialObj";
 import "./App.css";
+import FolderList from "./components/FolderList";
+import { width } from "@mui/system";
 
 function App() {
   const [config, setConfig] = useState<api.Config>(initialObj.config);
@@ -64,19 +66,10 @@ function App() {
           >
             <BasicTabs labels={["Folder", "Playlist"]}>
               <div>
-                <Button
-                  onClick={() => {
-                    invoke("get_dir_data", {
-                      dirPath: "c:/Users/ryo/Music",
-                    }).then((rustMsg) => {
-                      console.log(rustMsg);
-
-                      console.log(JSON.stringify(rustMsg));
-                    });
-                  }}
-                >
-                  {config.musicDataFolderPath}
-                </Button>
+                {config.musicDataFolderPath.map((item) => {
+                  return <div>{item}</div>;
+                  //return <FolderList dirPath={item} />;
+                })}
               </div>
               <div>bb</div>
               <div>cc</div>

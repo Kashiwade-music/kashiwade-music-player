@@ -37,7 +37,7 @@ fn get_lanch_config() -> serde_json::Value {
   println!("With text:\n{}", contents);
 
   if contents.len() == 0 {
-    let default_config = json!({"musicDataFolderPath": "~/Music"});
+    let default_config = json!({"musicDataFolderPath": ["~/Music"]});
     file
       .write_all(default_config.to_string().as_bytes())
       .unwrap();

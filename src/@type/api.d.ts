@@ -1,7 +1,7 @@
 declare module api {
   export interface Config {
     // 設定情報のやり取り用
-    musicDataFolderPath: string[] = [""];
+    musicDataFolderPath: string[];
   }
   export interface DirData {
     // ディレクトリのファイル情報
