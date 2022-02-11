@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { textTransform } from "@mui/system";
+import { FixedSizeList } from "react-window";
 
 interface TabPanelProps {
   children?: React.ReactNode;

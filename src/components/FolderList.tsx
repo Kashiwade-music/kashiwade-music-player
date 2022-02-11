@@ -9,6 +9,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import FolderIcon from "@mui/icons-material/Folder";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import AudioFileIcon from "@mui/icons-material/AudioFile";
+import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -21,7 +22,7 @@ type Props = {
 };
 
 function FolderList(props: Props) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const [dirData, setDirData] = useState(initialObj.dirData);
   useEffect(() => {
@@ -47,24 +48,23 @@ function FolderList(props: Props) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List dense={true} component="div" disablePadding>
           {dirData.dirData.map((value, index) => {
-            if (value.isDir) {
-              return (
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={value.name} />
-                </ListItemButton>
-              );
-            } else {
-              return (
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <AudioFileIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={value.name} />
-                </ListItemButton>
-              );
+            if (value.depth === 1) {
+              if (value.isDir) {
+                return (
+                  <Box sx={{ pl: 2 }}>
+                    <FolderList dirPath={value.fullPath} />
+                  </Box>
+                );
+              } else {
+                return (
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <AudioFileIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={value.name} />
+                  </ListItemButton>
+                );
+              }
             }
           })}
         </List>
