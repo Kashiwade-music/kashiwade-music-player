@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import BasicTabs from "./components/BasicTabs";
 import { Button } from "@mui/material";
 import { invoke } from "@tauri-apps/api/tauri";
+import * as initialObj from "./module/initialObj";
 import "./App.css";
 
 function App() {
-  let config;
-  invoke("get_lanch_config").then((message) => {
-    config = message;
-    console.log(message);
-  });
-  console.log(config);
+  const [config, setConfig] = useState<api.Config>(initialObj.config);
+  useEffect(() => {
+    const getLanchConfig = async () => {
+      const initialState = JSON.parse(await invoke("get_lanch_config"));
+      setConfig(initialState);
+    };
+    getLanchConfig();
+  }, []);
 
   const GridParent = styled.div`
     display: grid;
@@ -72,7 +75,7 @@ function App() {
                     });
                   }}
                 >
-                  test
+                  {config.musicDataFolderPath}
                 </Button>
               </div>
               <div>bb</div>
