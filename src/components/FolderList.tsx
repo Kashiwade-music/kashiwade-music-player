@@ -32,43 +32,63 @@ function FolderList(props: Props) {
   const handleClick = () => {
     setOpen(!open);
   };
+
   return (
     <List
       dense={true}
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", p: 0 }}
       aria-labelledby="nested-list-subheader"
+      disablePadding={true}
     >
       <ListItemButton onClick={handleClick}>
-        <ListItemIcon>
+        <ListItemIcon sx={{ minWidth: "32px" }}>
           <LibraryMusicIcon />
         </ListItemIcon>
-        <ListItemText primary={dirData.dirData[0].name} />
+        <ListItemText
+          primary={dirData.dirData[0].name}
+          sx={{
+            ".MuiTypography-root": {
+              fontSize: "0.8rem",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            },
+          }}
+        />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List dense={true} component="div" disablePadding>
-          {dirData.dirData.map((value, index) => {
-            if (value.depth === 1) {
-              if (value.isDir) {
-                return (
-                  <Box sx={{ pl: 2 }}>
-                    <FolderList dirPath={value.fullPath} />
-                  </Box>
-                );
-              } else {
-                return (
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon>
-                      <AudioFileIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={value.name} />
-                  </ListItemButton>
-                );
+      <Box sx={{ pl: 2 }}>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List dense={true} component="div" disablePadding>
+            {dirData.dirData.map((value, index) => {
+              if (value.depth === 1) {
+                if (value.isDir) {
+                  return <FolderList dirPath={value.fullPath} />;
+                } else {
+                  return (
+                    <ListItemButton>
+                      <ListItemIcon sx={{ minWidth: "32px" }}>
+                        <AudioFileIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={value.name}
+                        sx={{
+                          ".MuiTypography-root": {
+                            fontSize: "0.8rem",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          },
+                        }}
+                      />
+                    </ListItemButton>
+                  );
+                }
               }
-            }
-          })}
-        </List>
-      </Collapse>
+            })}
+          </List>
+        </Collapse>
+      </Box>
     </List>
   );
 }

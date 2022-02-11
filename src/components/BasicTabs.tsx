@@ -4,7 +4,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { textTransform } from "@mui/system";
-import { FixedSizeList } from "react-window";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -17,17 +16,26 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
+      style={{ height: "100%" }}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 0 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      <Box sx={{ width: "100%", height: "100%" }}>
+        {value === index && (
+          <Box
+            sx={{
+              p: 0,
+              maxHeight: "100%",
+              overflow: "auto",
+            }}
+          >
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </Box>
     </div>
   );
 }
@@ -52,8 +60,13 @@ export default function BasicTabs(props: Props) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box sx={{ width: "100%", height: "100%" }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
@@ -67,11 +80,18 @@ export default function BasicTabs(props: Props) {
           ))}
         </Tabs>
       </Box>
-      {props.children.map((child, index) => (
-        <TabPanel value={value} index={index}>
-          {child}
-        </TabPanel>
-      ))}
+      <Box
+        sx={{
+          width: "100%",
+          height: "calc(100% - 48px)",
+        }}
+      >
+        {props.children.map((child, index) => (
+          <TabPanel value={value} index={index}>
+            {child}
+          </TabPanel>
+        ))}
+      </Box>
     </Box>
   );
 }
