@@ -102,6 +102,7 @@ const FlexMainViewLowerView = styled.div`
   flex-basis: auto;
   align-self: stretch;
   order: 0;
+  height: calc(100% - 150px);
 `;
 
 const FlexRightView = styled.div`
@@ -142,6 +143,9 @@ function App() {
             sx={{
               width: "100%",
               height: "100%",
+              borderBottom: 1,
+              borderColor: "divider",
+              boxSizing: "border-box",
             }}
           >
             <TopMenuBar
@@ -163,6 +167,9 @@ function App() {
                   sx={{
                     width: "100%",
                     height: "100%",
+                    borderRight: 1,
+                    borderColor: "divider",
+                    boxSizing: "border-box",
                   }}
                 >
                   <BasicTabs labels={["Folder", "Playlist"]}>
@@ -196,7 +203,9 @@ function App() {
                       sx={{
                         width: "100%",
                         height: "100%",
-                        backgroundColor: "secondary.light",
+                        borderBottom: 1,
+                        borderColor: "divider",
+                        boxSizing: "border-box",
                       }}
                     ></Box>
                   </FlexMainViewUpperView>
@@ -206,9 +215,24 @@ function App() {
                     sx={{
                       width: "100%",
                       height: "100%",
-                      backgroundColor: "success.light",
                     }}
-                  ></Box>
+                  >
+                    <BasicTabs labels={["Folder", "Playlist"]}>
+                      <div>
+                        {config.musicDataFolderPath.map((item) => {
+                          return <FolderList dirPath={item} />;
+                        })}
+                      </div>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      >
+                        test
+                      </Box>
+                    </BasicTabs>
+                  </Box>
                 </FlexMainViewLowerView>
               </FlexMainViewBox>
             </FlexMainView>
@@ -223,7 +247,9 @@ function App() {
                   sx={{
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "success.main",
+                    borderLeft: 1,
+                    borderColor: "divider",
+                    boxSizing: "border-box",
                   }}
                 ></Box>
               </FlexRightView>
