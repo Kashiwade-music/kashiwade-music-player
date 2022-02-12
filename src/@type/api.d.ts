@@ -15,4 +15,15 @@ declare module api {
     currentDirPath: string;
     dirData: DirData[];
   }
+
+  // -------一時的なデータ-------//
+  export interface ViewStats {
+    left: boolean;
+    midUpper: boolean;
+    right: boolean;
+  }
+
+  export interface MainWindowsStats {
+    viewStats: ViewStats;
+  }
 }
