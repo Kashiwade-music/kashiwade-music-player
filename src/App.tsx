@@ -9,6 +9,7 @@ import "./App.css";
 import FolderList from "./components/FolderList";
 import { width } from "@mui/system";
 import getAPI from "./module/getAPI";
+import TopMenuBar from "./components/TopMenuBar";
 
 const FlexParent = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const FlexParent = styled.div`
   max-height: 100vh;
 `;
 const FlexTopView = styled.div`
-  height: 50px;
+  height: 30px;
   display: block;
   flex-grow: 0;
   flex-shrink: 0;
@@ -37,7 +38,7 @@ const FlexMidView = styled.div`
   flex-basis: auto;
   align-self: stretch;
   order: 0;
-  height: calc(100% - 100px);
+  height: calc(100% - 80px);
 `;
 
 const FlexMidViewBox = styled.div`
@@ -59,6 +60,8 @@ const FlexLeftView = styled.div`
   flex-basis: auto;
   align-self: stretch;
   order: 0;
+  height: 100%;
+  max-height: 100%;
 `;
 const FlexMainView = styled.div`
   display: block;
@@ -67,6 +70,8 @@ const FlexMainView = styled.div`
   flex-basis: auto;
   align-self: stretch;
   order: 0;
+  height: 100%;
+  max-height: 100%;
 `;
 
 const FlexMainViewBox = styled.div`
@@ -77,6 +82,7 @@ const FlexMainViewBox = styled.div`
   align-items: normal;
   align-content: normal;
   height: 100%;
+  max-height: 100%;
 `;
 
 const FlexMainViewUpperView = styled.div`
@@ -106,6 +112,8 @@ const FlexRightView = styled.div`
   flex-basis: auto;
   align-self: stretch;
   order: 0;
+  height: 100%;
+  max-height: 100%;
 `;
 const FlexBottomView = styled.div`
   height: 50px;
@@ -134,38 +142,48 @@ function App() {
             sx={{
               width: "100%",
               height: "100%",
-              backgroundColor: "primary.dark",
             }}
-          ></Box>
+          >
+            <TopMenuBar
+              mainWindowStats={mainWindowStats}
+              setMainWindowStats={setMainWindowStats}
+            />
+          </Box>
         </FlexTopView>
         <FlexMidView>
           <FlexMidViewBox>
-            <FlexLeftView>
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                <BasicTabs labels={["Folder", "Playlist"]}>
-                  <div>
-                    {config.musicDataFolderPath.map((item) => {
-                      return <FolderList dirPath={item} />;
-                    })}
-                  </div>
-                  <Box
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "primary.dark",
-                    }}
-                  >
-                    test
-                  </Box>
-                </BasicTabs>
-              </Box>
-            </FlexLeftView>
-
+            <Collapse
+              in={mainWindowStats.viewStats.left}
+              timeout="auto"
+              unmountOnExit
+              orientation="horizontal"
+            >
+              <FlexLeftView>
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <BasicTabs labels={["Folder", "Playlist"]}>
+                    <div>
+                      {config.musicDataFolderPath.map((item) => {
+                        return <FolderList dirPath={item} />;
+                      })}
+                    </div>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "primary.dark",
+                      }}
+                    >
+                      test
+                    </Box>
+                  </BasicTabs>
+                </Box>
+              </FlexLeftView>
+            </Collapse>
             <FlexMainView>
               <FlexMainViewBox>
                 <Collapse
@@ -190,34 +208,26 @@ function App() {
                       height: "100%",
                       backgroundColor: "success.light",
                     }}
-                  >
-                    <Button
-                      onClick={() => {
-                        setMainWindowStats({
-                          ...mainWindowStats,
-                          viewStats: {
-                            ...mainWindowStats.viewStats,
-                            midUpper: !mainWindowStats.viewStats.midUpper,
-                          },
-                        });
-                      }}
-                    >
-                      open
-                    </Button>
-                  </Box>
+                  ></Box>
                 </FlexMainViewLowerView>
               </FlexMainViewBox>
             </FlexMainView>
-
-            <FlexRightView>
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "success.main",
-                }}
-              ></Box>
-            </FlexRightView>
+            <Collapse
+              in={mainWindowStats.viewStats.right}
+              timeout="auto"
+              unmountOnExit
+              orientation="horizontal"
+            >
+              <FlexRightView>
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "success.main",
+                  }}
+                ></Box>
+              </FlexRightView>
+            </Collapse>
           </FlexMidViewBox>
         </FlexMidView>
         <FlexBottomView>
