@@ -10,6 +10,7 @@ import FolderList from "./components/FolderList";
 import { width } from "@mui/system";
 import getAPI from "./module/getAPI";
 import TopMenuBar from "./components/TopMenuBar";
+import FileList from "./components/FileList";
 
 const FlexParent = styled.div`
   display: flex;
@@ -175,7 +176,13 @@ function App() {
                   <BasicTabs labels={["Folder", "Playlist"]}>
                     <div>
                       {config.musicDataFolderPath.map((item) => {
-                        return <FolderList dirPath={item} />;
+                        return (
+                          <FolderList
+                            dirPath={item}
+                            mainWindowStats={mainWindowStats}
+                            setMainWindowStats={setMainWindowStats}
+                          />
+                        );
                       })}
                     </div>
                     <Box
@@ -219,9 +226,12 @@ function App() {
                   >
                     <BasicTabs labels={["Folder", "Playlist"]}>
                       <div>
-                        {config.musicDataFolderPath.map((item) => {
-                          return <FolderList dirPath={item} />;
-                        })}
+                        <FileList
+                          dirPath={
+                            mainWindowStats.selectedFolderStats
+                              .shouldShowDirPathInMidMain
+                          }
+                        />
                       </div>
                       <Box
                         sx={{

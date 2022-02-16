@@ -17,19 +17,61 @@ import * as initialObj from "../module/initialObj";
 import StarBorder from "@mui/icons-material/StarBorder";
 import getAPI from "../module/getAPI";
 
+let openingDirs: string[] = [];
+
 type Props = {
   dirPath: string;
+  mainWindowStats: api.MainWindowsStats;
+  setMainWindowStats: React.Dispatch<
+    React.SetStateAction<api.MainWindowsStats>
+  >;
 };
 
 function FolderList(props: Props) {
+  console.log(`in FolderList dirPath is ${props.dirPath}`);
+
   const [open, setOpen] = useState(false);
 
   const [dirData, setDirData] = useState(initialObj.dirData);
   useEffect(() => {
     getAPI("get_dir_data", setDirData, { dirPath: props.dirPath });
   }, []);
+  console.log(
+    `in FolderList, dirPath = ${props.dirPath}, ${JSON.stringify(dirData)}`
+  );
 
-  const handleClick = () => {
+  const handleClick = (clickedDirName: string) => {
+    if (!open) {
+      // これから開くので追加
+      let newOpeningDirInTree =
+        props.mainWindowStats.selectedFolderStats.openingDirInTree;
+      newOpeningDirInTree.push(props.dirPath);
+      newOpeningDirInTree = Array.from(new Set(newOpeningDirInTree));
+      props.setMainWindowStats({
+        ...props.mainWindowStats,
+        selectedFolderStats: {
+          shouldShowDirPathInMidMain: props.dirPath,
+          openingDirInTree: newOpeningDirInTree,
+        },
+      });
+      console.log(props.mainWindowStats);
+    } else {
+      // これから閉じるので配列だけ削除
+      let newOpeningDirInTree =
+        props.mainWindowStats.selectedFolderStats.openingDirInTree;
+      newOpeningDirInTree = newOpeningDirInTree.filter((value) => {
+        return value !== props.dirPath;
+      });
+      props.setMainWindowStats({
+        ...props.mainWindowStats,
+        selectedFolderStats: {
+          ...props.mainWindowStats.selectedFolderStats,
+          openingDirInTree: newOpeningDirInTree,
+        },
+      });
+      console.log(props.mainWindowStats);
+    }
+
     setOpen(!open);
   };
 
@@ -40,7 +82,11 @@ function FolderList(props: Props) {
       aria-labelledby="nested-list-subheader"
       disablePadding={true}
     >
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton
+        onClick={() => {
+          handleClick(dirData.dirData[0].name);
+        }}
+      >
         <ListItemIcon sx={{ minWidth: "32px" }}>
           <LibraryMusicIcon />
         </ListItemIcon>
@@ -63,7 +109,13 @@ function FolderList(props: Props) {
             {dirData.dirData.map((value, index) => {
               if (value.depth === 1) {
                 if (value.isDir) {
-                  return <FolderList dirPath={value.fullPath} />;
+                  return (
+                    <FolderList
+                      dirPath={value.fullPath}
+                      mainWindowStats={props.mainWindowStats}
+                      setMainWindowStats={props.setMainWindowStats}
+                    />
+                  );
                 } else {
                   return (
                     <ListItemButton>

@@ -23,7 +23,13 @@ declare module api {
     right: boolean;
   }
 
+  export interface SelectedFolderStats {
+    shouldShowDirPathInMidMain: string;
+    openingDirInTree: string[];
+  }
+
   export interface MainWindowsStats {
     viewStats: ViewStats;
+    selectedFolderStats: SelectedFolderStats;
   }
 }

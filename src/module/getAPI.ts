@@ -8,7 +8,6 @@ const getAPI = (
 ) => {
   const getJSON = async () => {
     const initialData = await invoke(commandName, argObj);
-    console.log(initialData);
     if (isJsonString(initialData as string)) {
       setFunc(JSON.parse(initialData as string));
     } else {
