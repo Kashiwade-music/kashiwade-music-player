@@ -17,6 +17,8 @@ import * as initialObj from "../module/initialObj";
 import StarBorder from "@mui/icons-material/StarBorder";
 import getAPI from "../module/getAPI";
 
+let openingDirs: string[] = [];
+
 type Props = {
   dirPath: string;
 };
@@ -29,7 +31,20 @@ function FolderList(props: Props) {
     getAPI("get_dir_data", setDirData, { dirPath: props.dirPath });
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (clickedDirName: string) => {
+    if (!open) {
+      // これから開くので追加
+      openingDirs.push(props.dirPath);
+      openingDirs = Array.from(new Set(openingDirs));
+      console.log(openingDirs);
+    } else {
+      // これから閉じるので削除
+      openingDirs = openingDirs.filter((value) => {
+        return value !== props.dirPath;
+      });
+      console.log(openingDirs);
+    }
+
     setOpen(!open);
   };
 
@@ -40,7 +55,11 @@ function FolderList(props: Props) {
       aria-labelledby="nested-list-subheader"
       disablePadding={true}
     >
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton
+        onClick={() => {
+          handleClick(dirData.dirData[0].name);
+        }}
+      >
         <ListItemIcon sx={{ minWidth: "32px" }}>
           <LibraryMusicIcon />
         </ListItemIcon>
