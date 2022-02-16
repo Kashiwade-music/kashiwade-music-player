@@ -28,6 +28,8 @@ type Props = {
 };
 
 function FolderList(props: Props) {
+  console.log(`rendered: ${props.dirPath}`);
+
   const [open, setOpen] = useState(
     props.mainWindowStats.selectedFolderStats.openingDirInTree.includes(
       props.dirPath
@@ -144,4 +146,4 @@ function FolderList(props: Props) {
   );
 }
 
-export default FolderList;
+export default React.memo(FolderList);

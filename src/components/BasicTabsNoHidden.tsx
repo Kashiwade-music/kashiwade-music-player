@@ -18,7 +18,7 @@ function TabPanel(props: TabPanelProps) {
     <div
       style={{
         height: "100%",
-        visibility: value !== index ? "hidden" : "visible",
+        opacity: value !== index ? "hidden" : "visible",
       }}
       role="tabpanel"
       id={`simple-tabpanel-${index}`}
