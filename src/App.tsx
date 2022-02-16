@@ -3,6 +3,7 @@ import { Collapse } from "@mui/material";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import BasicTabs from "./components/BasicTabs";
+import BasicTabsNoHidden from "./components/BasicTabsNoHidden";
 import { Button } from "@mui/material";
 import * as initialObj from "./module/initialObj";
 import "./App.css";
@@ -173,7 +174,7 @@ function App() {
                     boxSizing: "border-box",
                   }}
                 >
-                  <BasicTabs labels={["Folder", "Playlist"]}>
+                  <BasicTabsNoHidden labels={["Folder", "Playlist"]}>
                     <div>
                       {config.musicDataFolderPath.map((item) => {
                         return (
@@ -194,7 +195,7 @@ function App() {
                     >
                       test
                     </Box>
-                  </BasicTabs>
+                  </BasicTabsNoHidden>
                 </Box>
               </FlexLeftView>
             </Collapse>
