@@ -25,13 +25,7 @@ function FileList(props: Props) {
   const [dirData, setDirData] = useState(initialObj.dirData);
   useEffect(() => {
     getAPI("get_dir_data", setDirData, { dirPath: props.dirPath });
-    console.log(
-      `in fileList, dirPath = ${props.dirPath}, ${JSON.stringify(dirData)}`
-    );
   }, [props]);
-  console.log(
-    `in fileList, dirPath = ${props.dirPath}, ${JSON.stringify(dirData)}`
-  );
 
   return (
     <List

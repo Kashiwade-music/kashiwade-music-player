@@ -28,17 +28,16 @@ type Props = {
 };
 
 function FolderList(props: Props) {
-  console.log(`in FolderList dirPath is ${props.dirPath}`);
-
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(
+    props.mainWindowStats.selectedFolderStats.openingDirInTree.includes(
+      props.dirPath
+    )
+  );
 
   const [dirData, setDirData] = useState(initialObj.dirData);
   useEffect(() => {
     getAPI("get_dir_data", setDirData, { dirPath: props.dirPath });
   }, []);
-  console.log(
-    `in FolderList, dirPath = ${props.dirPath}, ${JSON.stringify(dirData)}`
-  );
 
   const handleClick = (clickedDirName: string) => {
     if (!open) {
@@ -54,7 +53,7 @@ function FolderList(props: Props) {
           openingDirInTree: newOpeningDirInTree,
         },
       });
-      console.log(props.mainWindowStats);
+      console.log(newOpeningDirInTree);
     } else {
       // これから閉じるので配列だけ削除
       let newOpeningDirInTree =
@@ -69,7 +68,7 @@ function FolderList(props: Props) {
           openingDirInTree: newOpeningDirInTree,
         },
       });
-      console.log(props.mainWindowStats);
+      console.log(newOpeningDirInTree);
     }
 
     setOpen(!open);

@@ -224,7 +224,7 @@ function App() {
                       height: "100%",
                     }}
                   >
-                    <BasicTabs labels={["Folder", "Playlist"]}>
+                    <BasicTabs labels={["Files", "DAW View", "Spectrogram"]}>
                       <div>
                         <FileList
                           dirPath={
