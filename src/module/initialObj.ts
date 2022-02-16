@@ -11,4 +11,8 @@ export const mainWindowStats: api.MainWindowsStats = {
     midUpper: true,
     right: true,
   },
+  selectedFolderStats: {
+    shouldShowDirPathInMidMain: "",
+    openingDirInTree: [],
+  },
 };
