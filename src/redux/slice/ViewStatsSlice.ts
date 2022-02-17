@@ -30,10 +30,10 @@ export const { changeLeft, changeMidUpper, changeRight } = slice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectViewStatsLeft = (state: store.RootState) =>
-  state.viewStats.left;
+  state.ViewStats.left;
 export const selectViewStatsMidUpper = (state: store.RootState) =>
-  state.viewStats.midUpper;
+  state.ViewStats.midUpper;
 export const selectViewStatsRight = (state: store.RootState) =>
-  state.viewStats.right;
+  state.ViewStats.right;
 
 export default slice.reducer;
