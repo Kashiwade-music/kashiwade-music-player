@@ -78,7 +78,7 @@ export default function BasicTabs(props: Props) {
           <Tab label="Item Two" {...a11yProps(1)} />
   <Tab label="Item Three" {...a11yProps(2)} />*/}
           {props.labels.map((label) => (
-            <Tab label={label}></Tab>
+            <Tab label={label} key={label}></Tab>
           ))}
         </Tabs>
       </Box>

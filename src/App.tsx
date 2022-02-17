@@ -18,6 +18,13 @@ import {
   selectViewStatsMidUpper,
   selectViewStatsRight,
 } from "./redux/slice/ViewStatsSlice";
+import {
+  changeShouldShowDirPathInMidMain,
+  addOpeningDirInTree,
+  deleteOpeningDirInTree,
+  selectShouldShowDirPathInMidMain,
+  selectOpeningDirInTree,
+} from "./redux/slice/SelectedFolderStatsSlice";
 
 const FlexParent = styled.div`
   display: flex;
@@ -138,7 +145,15 @@ function App() {
   const ViewStatsLeft = useSelector(selectViewStatsLeft);
   const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
   const ViewStatsRight = useSelector(selectViewStatsRight);
+  const OpeningDirInTree = useSelector(selectOpeningDirInTree);
   const dispatch = useDispatch();
+
+  const isOpenFunc = (value: string) => {
+    console.log(`isOpenFunc ${value}`);
+    console.log(OpeningDirInTree);
+    console.log(OpeningDirInTree.includes(value));
+    return OpeningDirInTree.includes(value);
+  };
 
   const [mainWindowStats, setMainWindowStats] = useState(
     initialObj.mainWindowStats
@@ -185,7 +200,12 @@ function App() {
                   <BasicTabsNoHidden labels={["Folder", "Playlist"]}>
                     <div>
                       {config.musicDataFolderPath.map((item) => {
-                        return <FolderList dirPath={item} />;
+                        return (
+                          <FolderList
+                            dirPath={item}
+                            isOpen={isOpenFunc(item)}
+                          />
+                        );
                       })}
                     </div>
                     <Box
