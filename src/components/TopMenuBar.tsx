@@ -16,13 +16,6 @@ import {
   changeRight,
 } from "../redux/slice/ViewStatsSlice";
 
-type Props = {
-  mainWindowStats: api.MainWindowsStats;
-  setMainWindowStats: React.Dispatch<
-    React.SetStateAction<api.MainWindowsStats>
-  >;
-};
-
 const getDirection = (value: boolean) => {
   if (value) {
     return "contained";
@@ -30,7 +23,7 @@ const getDirection = (value: boolean) => {
   return "outlined";
 };
 
-const TopMenuBar = (props: Props) => {
+const TopMenuBar = () => {
   const ViewStatsLeft = useSelector(selectViewStatsLeft);
   const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
   const ViewStatsRight = useSelector(selectViewStatsRight);

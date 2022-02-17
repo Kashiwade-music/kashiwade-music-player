@@ -161,10 +161,7 @@ function App() {
               boxSizing: "border-box",
             }}
           >
-            <TopMenuBar
-              mainWindowStats={mainWindowStats}
-              setMainWindowStats={setMainWindowStats}
-            />
+            <TopMenuBar />
           </Box>
         </FlexTopView>
         <FlexMidView>
