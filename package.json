@@ -56,7 +56,8 @@
     ]
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta.10"
+    "@tauri-apps/cli": "^1.0.0-beta.10",
+    "@welldone-software/why-did-you-render": "^6.2.3"
   },
   "resolutions": {
     "styled-components": "^5"

@@ -31,8 +31,6 @@ type Props = {
 };
 
 const FolderList = React.memo((props: Props) => {
-  console.log(`rendered: ${props.dirPath}`);
-
   const ShouldShowDirPathInMidMain = useSelector(
     selectShouldShowDirPathInMidMain
   );
@@ -53,20 +51,15 @@ const FolderList = React.memo((props: Props) => {
       // これから開くので追加
       dispatch(changeShouldShowDirPathInMidMain(props.dirPath));
       dispatch(addOpeningDirInTree(props.dirPath));
-      console.log(OpeningDirInTree);
     } else {
       // これから閉じるので配列だけ削除
       dispatch(deleteOpeningDirInTree(props.dirPath));
-      console.log(OpeningDirInTree);
     }
 
     setOpen(!open);
   };
 
   const isOpenFunc = (value: api.DirData) => {
-    console.log(`isOpenFunc ${value.fullPath}`);
-    console.log(OpeningDirInTree);
-    console.log(OpeningDirInTree.includes(value.fullPath));
     return OpeningDirInTree.includes(value.fullPath);
   };
 
@@ -134,7 +127,6 @@ const FolderList = React.memo((props: Props) => {
               }
             })}
           </List>
-          )
         </Collapse>
       </Box>
     </List>

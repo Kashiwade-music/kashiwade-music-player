@@ -149,9 +149,6 @@ function App() {
   const dispatch = useDispatch();
 
   const isOpenFunc = (value: string) => {
-    console.log(`isOpenFunc ${value}`);
-    console.log(OpeningDirInTree);
-    console.log(OpeningDirInTree.includes(value));
     return OpeningDirInTree.includes(value);
   };
 
