@@ -27,6 +27,7 @@ import {
 
 type Props = {
   dirPath: string;
+  isOpen: boolean;
 };
 
 const FolderList = React.memo((props: Props) => {
@@ -38,8 +39,8 @@ const FolderList = React.memo((props: Props) => {
   const OpeningDirInTree = useSelector(selectOpeningDirInTree);
   const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(OpeningDirInTree.includes(props.dirPath));
-
+  const [open, setOpen] = useState(props.isOpen);
+  //OpeningDirInTree.includes(props.dirPath)
   //let dirData = initialObj.dirData;
 
   const [dirData, setDirData] = useState(initialObj.dirData);
@@ -52,12 +53,21 @@ const FolderList = React.memo((props: Props) => {
       // これから開くので追加
       dispatch(changeShouldShowDirPathInMidMain(props.dirPath));
       dispatch(addOpeningDirInTree(props.dirPath));
+      console.log(OpeningDirInTree);
     } else {
       // これから閉じるので配列だけ削除
       dispatch(deleteOpeningDirInTree(props.dirPath));
+      console.log(OpeningDirInTree);
     }
 
     setOpen(!open);
+  };
+
+  const isOpenFunc = (value: api.DirData) => {
+    console.log(`isOpenFunc ${value.fullPath}`);
+    console.log(OpeningDirInTree);
+    console.log(OpeningDirInTree.includes(value.fullPath));
+    return OpeningDirInTree.includes(value.fullPath);
   };
 
   return (
@@ -68,6 +78,7 @@ const FolderList = React.memo((props: Props) => {
       disablePadding={true}
     >
       <ListItemButton
+        key={dirData.dirData[0].name}
         onClick={() => {
           handleClick();
         }}
@@ -89,15 +100,20 @@ const FolderList = React.memo((props: Props) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Box sx={{ pl: 2 }}>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={open} unmountOnExit>
           <List dense={true} component="div" disablePadding>
             {dirData.dirData.map((value, index) => {
               if (value.depth === 1) {
                 if (value.isDir && open) {
-                  return <FolderList dirPath={value.fullPath} />;
+                  return (
+                    <FolderList
+                      dirPath={value.fullPath}
+                      isOpen={isOpenFunc(value)}
+                    />
+                  );
                 } else {
                   return (
-                    <ListItemButton>
+                    <ListItemButton key={value.name}>
                       <ListItemIcon sx={{ minWidth: "32px" }}>
                         <AudioFileIcon />
                       </ListItemIcon>
@@ -118,6 +134,7 @@ const FolderList = React.memo((props: Props) => {
               }
             })}
           </List>
+          )
         </Collapse>
       </Box>
     </List>
