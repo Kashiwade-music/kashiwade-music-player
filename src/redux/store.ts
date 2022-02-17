@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import viewStatsReducer from "./slice/viewStatsSlice";
+import viewStatsReducer from "./slice/ViewStatsSlice";
 
 export const store = configureStore({
   reducer: { viewStats: viewStatsReducer },

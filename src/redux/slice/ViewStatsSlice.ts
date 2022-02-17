@@ -18,13 +18,13 @@ export const slice = createSlice({
     changeMidUpper: (state) => {
       state.midUpper = !state.midUpper;
     },
-    changeright: (state) => {
+    changeRight: (state) => {
       state.right = !state.right;
     },
   },
 });
 
-export const { changeLeft, changeMidUpper, changeright } = slice.actions;
+export const { changeLeft, changeMidUpper, changeRight } = slice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
