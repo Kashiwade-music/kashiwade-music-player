@@ -185,13 +185,7 @@ function App() {
                   <BasicTabsNoHidden labels={["Folder", "Playlist"]}>
                     <div>
                       {config.musicDataFolderPath.map((item) => {
-                        return (
-                          <FolderList
-                            dirPath={item}
-                            mainWindowStats={mainWindowStats}
-                            setMainWindowStats={setMainWindowStats}
-                          />
-                        );
+                        return <FolderList dirPath={item} />;
                       })}
                     </div>
                     <Box

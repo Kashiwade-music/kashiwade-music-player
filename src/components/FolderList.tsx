@@ -16,61 +16,45 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import * as initialObj from "../module/initialObj";
 import StarBorder from "@mui/icons-material/StarBorder";
 import getAPI from "../module/getAPI";
-
-let openingDirs: string[] = [];
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeShouldShowDirPathInMidMain,
+  addOpeningDirInTree,
+  deleteOpeningDirInTree,
+  selectShouldShowDirPathInMidMain,
+  selectOpeningDirInTree,
+} from "../redux/slice/SelectedFolderStatsSlice";
 
 type Props = {
   dirPath: string;
-  mainWindowStats: api.MainWindowsStats;
-  setMainWindowStats: React.Dispatch<
-    React.SetStateAction<api.MainWindowsStats>
-  >;
 };
 
-function FolderList(props: Props) {
+const FolderList = React.memo((props: Props) => {
   console.log(`rendered: ${props.dirPath}`);
 
-  const [open, setOpen] = useState(
-    props.mainWindowStats.selectedFolderStats.openingDirInTree.includes(
-      props.dirPath
-    )
+  const ShouldShowDirPathInMidMain = useSelector(
+    selectShouldShowDirPathInMidMain
   );
+  const OpeningDirInTree = useSelector(selectOpeningDirInTree);
+  const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(OpeningDirInTree.includes(props.dirPath));
+
+  //let dirData = initialObj.dirData;
 
   const [dirData, setDirData] = useState(initialObj.dirData);
   useEffect(() => {
     getAPI("get_dir_data", setDirData, { dirPath: props.dirPath });
   }, []);
 
-  const handleClick = (clickedDirName: string) => {
+  const handleClick = () => {
     if (!open) {
       // これから開くので追加
-      let newOpeningDirInTree =
-        props.mainWindowStats.selectedFolderStats.openingDirInTree;
-      newOpeningDirInTree.push(props.dirPath);
-      newOpeningDirInTree = Array.from(new Set(newOpeningDirInTree));
-      props.setMainWindowStats({
-        ...props.mainWindowStats,
-        selectedFolderStats: {
-          shouldShowDirPathInMidMain: props.dirPath,
-          openingDirInTree: newOpeningDirInTree,
-        },
-      });
-      console.log(newOpeningDirInTree);
+      dispatch(changeShouldShowDirPathInMidMain(props.dirPath));
+      dispatch(addOpeningDirInTree(props.dirPath));
     } else {
       // これから閉じるので配列だけ削除
-      let newOpeningDirInTree =
-        props.mainWindowStats.selectedFolderStats.openingDirInTree;
-      newOpeningDirInTree = newOpeningDirInTree.filter((value) => {
-        return value !== props.dirPath;
-      });
-      props.setMainWindowStats({
-        ...props.mainWindowStats,
-        selectedFolderStats: {
-          ...props.mainWindowStats.selectedFolderStats,
-          openingDirInTree: newOpeningDirInTree,
-        },
-      });
-      console.log(newOpeningDirInTree);
+      dispatch(deleteOpeningDirInTree(props.dirPath));
     }
 
     setOpen(!open);
@@ -85,7 +69,7 @@ function FolderList(props: Props) {
     >
       <ListItemButton
         onClick={() => {
-          handleClick(dirData.dirData[0].name);
+          handleClick();
         }}
       >
         <ListItemIcon sx={{ minWidth: "32px" }}>
@@ -109,14 +93,8 @@ function FolderList(props: Props) {
           <List dense={true} component="div" disablePadding>
             {dirData.dirData.map((value, index) => {
               if (value.depth === 1) {
-                if (value.isDir) {
-                  return (
-                    <FolderList
-                      dirPath={value.fullPath}
-                      mainWindowStats={props.mainWindowStats}
-                      setMainWindowStats={props.setMainWindowStats}
-                    />
-                  );
+                if (value.isDir && open) {
+                  return <FolderList dirPath={value.fullPath} />;
                 } else {
                   return (
                     <ListItemButton>
@@ -144,6 +122,6 @@ function FolderList(props: Props) {
       </Box>
     </List>
   );
-}
+});
 
-export default React.memo(FolderList);
+export default FolderList;
