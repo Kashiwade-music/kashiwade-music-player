@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import viewStatsReducer from "./slice/viewStatsSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { viewStats: viewStatsReducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
