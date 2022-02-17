@@ -12,6 +12,12 @@ import { width } from "@mui/system";
 import getAPI from "./module/getAPI";
 import TopMenuBar from "./components/TopMenuBar";
 import FileList from "./components/FileList";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectViewStatsLeft,
+  selectViewStatsMidUpper,
+  selectViewStatsRight,
+} from "./redux/slice/ViewStatsSlice";
 
 const FlexParent = styled.div`
   display: flex;
@@ -129,6 +135,11 @@ const FlexBottomView = styled.div`
 `;
 
 function App() {
+  const ViewStatsLeft = useSelector(selectViewStatsLeft);
+  const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
+  const ViewStatsRight = useSelector(selectViewStatsRight);
+  const dispatch = useDispatch();
+
   const [mainWindowStats, setMainWindowStats] = useState(
     initialObj.mainWindowStats
   );
@@ -150,16 +161,13 @@ function App() {
               boxSizing: "border-box",
             }}
           >
-            <TopMenuBar
-              mainWindowStats={mainWindowStats}
-              setMainWindowStats={setMainWindowStats}
-            />
+            <TopMenuBar />
           </Box>
         </FlexTopView>
         <FlexMidView>
           <FlexMidViewBox>
             <Collapse
-              in={mainWindowStats.viewStats.left}
+              in={ViewStatsLeft}
               timeout="auto"
               unmountOnExit
               orientation="horizontal"
@@ -177,13 +185,7 @@ function App() {
                   <BasicTabsNoHidden labels={["Folder", "Playlist"]}>
                     <div>
                       {config.musicDataFolderPath.map((item) => {
-                        return (
-                          <FolderList
-                            dirPath={item}
-                            mainWindowStats={mainWindowStats}
-                            setMainWindowStats={setMainWindowStats}
-                          />
-                        );
+                        return <FolderList dirPath={item} />;
                       })}
                     </div>
                     <Box
@@ -201,11 +203,7 @@ function App() {
             </Collapse>
             <FlexMainView>
               <FlexMainViewBox>
-                <Collapse
-                  in={mainWindowStats.viewStats.midUpper}
-                  timeout="auto"
-                  unmountOnExit
-                >
+                <Collapse in={ViewStatsMidUpper} timeout="auto" unmountOnExit>
                   <FlexMainViewUpperView>
                     <Box
                       sx={{
@@ -248,7 +246,7 @@ function App() {
               </FlexMainViewBox>
             </FlexMainView>
             <Collapse
-              in={mainWindowStats.viewStats.right}
+              in={ViewStatsRight}
               timeout="auto"
               unmountOnExit
               orientation="horizontal"

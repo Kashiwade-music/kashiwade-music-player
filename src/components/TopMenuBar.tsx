@@ -6,13 +6,15 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import * as MySvgIcon from "../resources/MySvgIcon";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
-
-type Props = {
-  mainWindowStats: api.MainWindowsStats;
-  setMainWindowStats: React.Dispatch<
-    React.SetStateAction<api.MainWindowsStats>
-  >;
-};
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectViewStatsLeft,
+  selectViewStatsMidUpper,
+  selectViewStatsRight,
+  changeLeft,
+  changeMidUpper,
+  changeRight,
+} from "../redux/slice/ViewStatsSlice";
 
 const getDirection = (value: boolean) => {
   if (value) {
@@ -21,21 +23,20 @@ const getDirection = (value: boolean) => {
   return "outlined";
 };
 
-const TopMenuBar = (props: Props) => {
+const TopMenuBar = () => {
+  const ViewStatsLeft = useSelector(selectViewStatsLeft);
+  const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
+  const ViewStatsRight = useSelector(selectViewStatsRight);
+  const dispatch = useDispatch();
+
   return (
     <Stack direction="row" spacing={0}>
       <Button
-        variant={getDirection(props.mainWindowStats.viewStats.left)}
+        variant={getDirection(ViewStatsLeft)}
         size="small"
         sx={{ minWidth: 0 }}
         onClick={() => {
-          props.setMainWindowStats({
-            ...props.mainWindowStats,
-            viewStats: {
-              ...props.mainWindowStats.viewStats,
-              left: !props.mainWindowStats.viewStats.left,
-            },
-          });
+          dispatch(changeLeft());
         }}
         disableElevation
       >
@@ -46,17 +47,11 @@ const TopMenuBar = (props: Props) => {
         />
       </Button>
       <Button
-        variant={getDirection(props.mainWindowStats.viewStats.midUpper)}
+        variant={getDirection(ViewStatsMidUpper)}
         size="small"
         sx={{ minWidth: 0 }}
         onClick={() => {
-          props.setMainWindowStats({
-            ...props.mainWindowStats,
-            viewStats: {
-              ...props.mainWindowStats.viewStats,
-              midUpper: !props.mainWindowStats.viewStats.midUpper,
-            },
-          });
+          dispatch(changeMidUpper());
         }}
         disableElevation
       >
@@ -67,17 +62,11 @@ const TopMenuBar = (props: Props) => {
         />
       </Button>
       <Button
-        variant={getDirection(props.mainWindowStats.viewStats.right)}
+        variant={getDirection(ViewStatsRight)}
         size="small"
         sx={{ minWidth: 0 }}
         onClick={() => {
-          props.setMainWindowStats({
-            ...props.mainWindowStats,
-            viewStats: {
-              ...props.mainWindowStats.viewStats,
-              right: !props.mainWindowStats.viewStats.right,
-            },
-          });
+          dispatch(changeRight());
         }}
         disableElevation
       >
