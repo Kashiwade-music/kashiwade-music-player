@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
-
-import getAPI from "../../module/getAPI";
-import * as initialObj from "../../module/initialObj";
+import React from "react";
 import FolderList from "../../components/FolderList";
-
-import { useSelector, useDispatch } from "react-redux";
-import { selectOpeningDirInTree } from "../../redux/slice/SelectedFolderStatsSlice";
+import { useSelector } from "react-redux";
 import { selectMusicDataFolderPath } from "../../redux/slice/ConfigSlice";
 
 const Folder = () => {
