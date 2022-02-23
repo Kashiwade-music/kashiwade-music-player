@@ -20,7 +20,7 @@ const Folder = () => {
   return (
     <>
       {config.musicDataFolderPath.map((item) => {
-        return <FolderList dirPath={item} isOpen={isOpenFunc(item)} />;
+        return <FolderList dirPath={item} />;
       })}
     </>
   );

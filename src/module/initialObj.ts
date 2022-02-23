@@ -7,9 +7,9 @@ export const dirData: api.RootObjectOfDirData = {
 // -------一時的なデータ-------//
 export const mainWindowStats: api.MainWindowsStats = {
   viewStats: {
-    left: true,
-    midUpper: true,
-    right: true,
+    leftZone: true,
+    upperZone: true,
+    rightZone: true,
   },
   selectedFolderStats: {
     shouldShowDirPathInProjectZone: "",

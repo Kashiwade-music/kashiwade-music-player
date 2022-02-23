@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Collapse } from "@mui/material";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
-import * as initialObj from "./module/initialObj";
-import getAPI from "./module/getAPI";
 import TopToolBarAria from "./TopToolBarAria/TopToolBarAria";
 import LeftZone from "./LeftZone/LeftZone";
 import ProjectZone from "./ProjectZone/ProjectZone";
 
 import { useSelector } from "react-redux";
 import {
-  selectViewStatsLeft,
-  selectViewStatsMidUpper,
-  selectViewStatsRight,
+  selectViewStatsLeftZone,
+  selectViewStatsUpperZone,
+  selectViewStatsRightZone,
 } from "./redux/slice/ViewStatsSlice";
 
 const FlexParent = styled.div`
@@ -131,9 +129,9 @@ const FlexBottomToolBarAria = styled.div`
 `;
 
 function App() {
-  const ViewStatsLeft = useSelector(selectViewStatsLeft);
-  const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
-  const ViewStatsRight = useSelector(selectViewStatsRight);
+  const ViewStatsLeftZone = useSelector(selectViewStatsLeftZone);
+  const ViewStatsUpperZone = useSelector(selectViewStatsUpperZone);
+  const ViewStatsRightZone = useSelector(selectViewStatsRightZone);
 
   return (
     <div className="App">
@@ -154,7 +152,7 @@ function App() {
         <FlexMainAria>
           <FlexMainAriaBox>
             <Collapse
-              in={ViewStatsLeft}
+              in={ViewStatsLeftZone}
               timeout="auto"
               orientation="horizontal"
             >
@@ -174,7 +172,7 @@ function App() {
             </Collapse>
             <FlexMainZone>
               <FlexMainZoneBox>
-                <Collapse in={ViewStatsMidUpper} timeout="auto" unmountOnExit>
+                <Collapse in={ViewStatsUpperZone} timeout="auto" unmountOnExit>
                   <FlexMainZoneUpperZone>
                     <Box
                       sx={{
@@ -200,7 +198,7 @@ function App() {
               </FlexMainZoneBox>
             </FlexMainZone>
             <Collapse
-              in={ViewStatsRight}
+              in={ViewStatsRightZone}
               timeout="auto"
               unmountOnExit
               orientation="horizontal"

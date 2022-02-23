@@ -19,9 +19,9 @@ declare module api {
 
   // -------一時的なデータ-------//
   export interface ViewStats {
-    left: boolean;
-    midUpper: boolean;
-    right: boolean;
+    leftZone: boolean;
+    upperZone: boolean;
+    rightZone: boolean;
   }
 
   export interface SelectedFolderStats {

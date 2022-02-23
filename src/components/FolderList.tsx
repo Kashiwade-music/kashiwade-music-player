@@ -27,19 +27,17 @@ import {
 
 type Props = {
   dirPath: string;
-  isOpen: boolean;
 };
 
 const FolderList = React.memo((props: Props) => {
-  const ShouldShowDirPathInProjectZone = useSelector(
-    selectShouldShowDirPathInProjectZone
-  );
   const OpeningDirInTree = useSelector(selectOpeningDirInTree);
   const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(props.isOpen);
-  //OpeningDirInTree.includes(props.dirPath)
-  //let dirData = initialObj.dirData;
+  const isOpenFunc = (path: string) => {
+    return OpeningDirInTree.includes(path);
+  };
+
+  const [open, setOpen] = useState(isOpenFunc(props.dirPath));
 
   const [dirData, setDirData] = useState(initialObj.dirData);
   useEffect(() => {
@@ -57,10 +55,6 @@ const FolderList = React.memo((props: Props) => {
     }
 
     setOpen(!open);
-  };
-
-  const isOpenFunc = (value: api.DirData) => {
-    return OpeningDirInTree.includes(value.fullPath);
   };
 
   return (
@@ -98,12 +92,7 @@ const FolderList = React.memo((props: Props) => {
             {dirData.dirData.map((value, index) => {
               if (value.depth === 1) {
                 if (value.isDir && open) {
-                  return (
-                    <FolderList
-                      dirPath={value.fullPath}
-                      isOpen={isOpenFunc(value)}
-                    />
-                  );
+                  return <FolderList dirPath={value.fullPath} />;
                 } else {
                   return (
                     <ListItemButton key={value.name}>

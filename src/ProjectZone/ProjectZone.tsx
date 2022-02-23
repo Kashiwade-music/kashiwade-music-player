@@ -12,11 +12,7 @@ import getAPI from "../module/getAPI";
 import TopToolBarAria from "../TopToolBarAria/TopToolBarAria";
 import FileList from "../components/FileList";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectViewStatsLeft,
-  selectViewStatsMidUpper,
-  selectViewStatsRight,
-} from "../redux/slice/ViewStatsSlice";
+
 import {
   changeShouldShowDirPathInProjectZone,
   addOpeningDirInTree,
