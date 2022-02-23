@@ -18,40 +18,25 @@ import {
   selectViewStatsRight,
 } from "../redux/slice/ViewStatsSlice";
 import {
-  changeShouldShowDirPathInMidMain,
+  changeShouldShowDirPathInProjectZone,
   addOpeningDirInTree,
   deleteOpeningDirInTree,
-  selectShouldShowDirPathInMidMain,
+  selectShouldShowDirPathInProjectZone,
   selectOpeningDirInTree,
 } from "../redux/slice/SelectedFolderStatsSlice";
 
 const ProjectZone = () => {
-  const ViewStatsLeft = useSelector(selectViewStatsLeft);
-  const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
-  const ViewStatsRight = useSelector(selectViewStatsRight);
-  const OpeningDirInTree = useSelector(selectOpeningDirInTree);
-  const dispatch = useDispatch();
-
-  const isOpenFunc = (value: string) => {
-    return OpeningDirInTree.includes(value);
-  };
-
+  const ShouldShowDirPathInProjectZone = useSelector(
+    selectShouldShowDirPathInProjectZone
+  );
   const [mainWindowStats, setMainWindowStats] = useState(
     initialObj.mainWindowStats
   );
-  const [config, setConfig] = useState<api.Config>(initialObj.config);
-  useEffect(() => {
-    getAPI("get_lanch_config", setConfig);
-  }, []);
 
   return (
     <BasicTabs labels={["Files", "DAW View", "Spectrogram"]}>
       <div>
-        <FileList
-          dirPath={
-            mainWindowStats.selectedFolderStats.shouldShowDirPathInMidMain
-          }
-        />
+        <FileList dirPath={ShouldShowDirPathInProjectZone} />
       </div>
       <Box
         sx={{

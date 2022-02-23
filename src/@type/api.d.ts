@@ -1,6 +1,7 @@
 declare module api {
   export interface Config {
     // 設定情報のやり取り用
+
     musicDataFolderPath: string[];
   }
   export interface DirData {
@@ -24,7 +25,7 @@ declare module api {
   }
 
   export interface SelectedFolderStats {
-    shouldShowDirPathInMidMain: string;
+    shouldShowDirPathInProjectZone: string;
     openingDirInTree: string[];
   }
 

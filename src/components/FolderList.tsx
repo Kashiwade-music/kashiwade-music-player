@@ -18,10 +18,10 @@ import StarBorder from "@mui/icons-material/StarBorder";
 import getAPI from "../module/getAPI";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  changeShouldShowDirPathInMidMain,
+  changeShouldShowDirPathInProjectZone,
   addOpeningDirInTree,
   deleteOpeningDirInTree,
-  selectShouldShowDirPathInMidMain,
+  selectShouldShowDirPathInProjectZone,
   selectOpeningDirInTree,
 } from "../redux/slice/SelectedFolderStatsSlice";
 
@@ -31,8 +31,8 @@ type Props = {
 };
 
 const FolderList = React.memo((props: Props) => {
-  const ShouldShowDirPathInMidMain = useSelector(
-    selectShouldShowDirPathInMidMain
+  const ShouldShowDirPathInProjectZone = useSelector(
+    selectShouldShowDirPathInProjectZone
   );
   const OpeningDirInTree = useSelector(selectOpeningDirInTree);
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const FolderList = React.memo((props: Props) => {
   const handleClick = () => {
     if (!open) {
       // これから開くので追加
-      dispatch(changeShouldShowDirPathInMidMain(props.dirPath));
+      dispatch(changeShouldShowDirPathInProjectZone(props.dirPath));
       dispatch(addOpeningDirInTree(props.dirPath));
     } else {
       // これから閉じるので配列だけ削除
