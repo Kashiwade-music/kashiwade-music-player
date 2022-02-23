@@ -182,7 +182,6 @@ function App() {
             <Collapse
               in={ViewStatsLeft}
               timeout="auto"
-              unmountOnExit
               orientation="horizontal"
             >
               <FlexLeftZone>
