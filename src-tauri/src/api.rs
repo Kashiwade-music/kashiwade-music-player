@@ -1,3 +1,4 @@
+use chrono::Local;
 use once_cell::sync::Lazy;
 use regex::Regex;
 use serde_json::json;
@@ -19,7 +20,8 @@ static DIR_DB: Lazy<sled::Db> = Lazy::new(|| sled::open("./cache/dir_data").unwr
 #[tauri::command]
 pub fn get_dir_data(dir_path: String) -> serde_json::Value {
   if let Ok(Some(res)) = DIR_DB.get(&dir_path) {
-    println!("data found in db");
+    let dt = Local::now();
+    println!("{} data found in db", dt.format("%Y/%m/%d/ %H:%M:%S:%6f"));
     let converted = String::from_utf8(res.to_vec()).unwrap();
     return json!(converted);
   }

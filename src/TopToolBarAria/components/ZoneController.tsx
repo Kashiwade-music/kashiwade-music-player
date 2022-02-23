@@ -6,9 +6,9 @@ import * as MySvgIcon from "../../resources/MySvgIcon";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectViewStatsLeft,
-  selectViewStatsMidUpper,
-  selectViewStatsRight,
+  selectViewStatsLeftZone,
+  selectViewStatsUpperZone,
+  selectViewStatsRightZone,
   changeLeft,
   changeMidUpper,
   changeRight,
@@ -22,15 +22,15 @@ const getDirection = (value: boolean) => {
 };
 
 const ZoneController = () => {
-  const ViewStatsLeft = useSelector(selectViewStatsLeft);
-  const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
-  const ViewStatsRight = useSelector(selectViewStatsRight);
+  const ViewStatsLeftZone = useSelector(selectViewStatsLeftZone);
+  const ViewStatsUpperZone = useSelector(selectViewStatsUpperZone);
+  const ViewStatsRightZone = useSelector(selectViewStatsRightZone);
   const dispatch = useDispatch();
 
   return (
     <Stack direction="row" spacing={0}>
       <Button
-        variant={getDirection(ViewStatsLeft)}
+        variant={getDirection(ViewStatsLeftZone)}
         size="small"
         sx={{ minWidth: 0 }}
         onClick={() => {
@@ -45,7 +45,7 @@ const ZoneController = () => {
         />
       </Button>
       <Button
-        variant={getDirection(ViewStatsMidUpper)}
+        variant={getDirection(ViewStatsUpperZone)}
         size="small"
         sx={{ minWidth: 0 }}
         onClick={() => {
@@ -60,7 +60,7 @@ const ZoneController = () => {
         />
       </Button>
       <Button
-        variant={getDirection(ViewStatsRight)}
+        variant={getDirection(ViewStatsRightZone)}
         size="small"
         sx={{ minWidth: 0 }}
         onClick={() => {

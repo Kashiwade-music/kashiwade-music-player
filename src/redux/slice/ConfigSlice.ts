@@ -13,7 +13,9 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setWholeConfig: (state, action: PayloadAction<api.Config>) => {
-      state = action.payload;
+      console.log(state);
+
+      state.musicDataFolderPath = action.payload.musicDataFolderPath;
       console.log(state);
     },
     addMusicDataFolderPath: (state, action: PayloadAction<string>) => {
@@ -37,6 +39,8 @@ export const {
 } = slice.actions;
 
 export const fetchConfig = () => async (dispatch: store.AppDispatch) => {
+  console.log("Hi!!!");
+
   const initialData = await invoke("get_lanch_config");
   if (isJsonString(initialData as string)) {
     dispatch(setWholeConfig(JSON.parse(initialData as string)));
