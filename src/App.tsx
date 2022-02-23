@@ -11,6 +11,7 @@ import FolderList from "./components/FolderList";
 import { width } from "@mui/system";
 import getAPI from "./module/getAPI";
 import TopToolBarAria from "./TopToolBarAria/TopToolBarAria";
+import LeftZone from "./LeftZone/LeftZone";
 import FileList from "./components/FileList";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -194,27 +195,7 @@ function App() {
                     boxSizing: "border-box",
                   }}
                 >
-                  <BasicTabsNoHidden labels={["Folder", "Playlist"]}>
-                    <div>
-                      {config.musicDataFolderPath.map((item) => {
-                        return (
-                          <FolderList
-                            dirPath={item}
-                            isOpen={isOpenFunc(item)}
-                          />
-                        );
-                      })}
-                    </div>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "primary.dark",
-                      }}
-                    >
-                      test
-                    </Box>
-                  </BasicTabsNoHidden>
+                  <LeftZone />
                 </Box>
               </FlexLeftZone>
             </Collapse>
