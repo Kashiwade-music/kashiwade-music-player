@@ -12,7 +12,7 @@ export const mainWindowStats: api.MainWindowsStats = {
     right: true,
   },
   selectedFolderStats: {
-    shouldShowDirPathInMidMain: "",
+    shouldShowDirPathInProjectZone: "",
     openingDirInTree: [],
   },
 };

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import ViewStatsReducer from "./slice/ViewStatsSlice";
 import SelectedFolderStatsReducer from "./slice/SelectedFolderStatsSlice";
+import ConfigReducer from "./slice/ConfigSlice";
 
 export const store = configureStore({
   reducer: {
     ViewStats: ViewStatsReducer,
     SelectedFolderStats: SelectedFolderStatsReducer,
+    Config: ConfigReducer,
   },
 });
 

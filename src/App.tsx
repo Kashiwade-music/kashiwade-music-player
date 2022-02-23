@@ -135,11 +135,6 @@ function App() {
   const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
   const ViewStatsRight = useSelector(selectViewStatsRight);
 
-  const [config, setConfig] = useState<api.Config>(initialObj.config);
-  useEffect(() => {
-    getAPI("get_lanch_config", setConfig);
-  }, []);
-
   return (
     <div className="App">
       <FlexParent>

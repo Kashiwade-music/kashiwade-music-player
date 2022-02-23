@@ -5,13 +5,7 @@ import * as initialObj from "../../module/initialObj";
 import FolderList from "../../components/FolderList";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  changeShouldShowDirPathInMidMain,
-  addOpeningDirInTree,
-  deleteOpeningDirInTree,
-  selectShouldShowDirPathInMidMain,
-  selectOpeningDirInTree,
-} from "../../redux/slice/SelectedFolderStatsSlice";
+import { selectOpeningDirInTree } from "../../redux/slice/SelectedFolderStatsSlice";
 
 const Folder = () => {
   const OpeningDirInTree = useSelector(selectOpeningDirInTree);
