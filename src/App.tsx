@@ -10,7 +10,7 @@ import "./App.css";
 import FolderList from "./components/FolderList";
 import { width } from "@mui/system";
 import getAPI from "./module/getAPI";
-import TopMenuBar from "./components/TopMenuBar";
+import TopToolBarAria from "./TopToolBarAria/TopToolBarAria";
 import FileList from "./components/FileList";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -173,7 +173,7 @@ function App() {
               boxSizing: "border-box",
             }}
           >
-            <TopMenuBar />
+            <TopToolBarAria />
           </Box>
         </FlexTopToolBarAria>
         <FlexMainAria>

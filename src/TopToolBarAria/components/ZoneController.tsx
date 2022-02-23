@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
-import * as MySvgIcon from "../resources/MySvgIcon";
+import * as MySvgIcon from "../../resources/MySvgIcon";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,7 +14,7 @@ import {
   changeLeft,
   changeMidUpper,
   changeRight,
-} from "../redux/slice/ViewStatsSlice";
+} from "../../redux/slice/ViewStatsSlice";
 
 const getDirection = (value: boolean) => {
   if (value) {
@@ -23,7 +23,7 @@ const getDirection = (value: boolean) => {
   return "outlined";
 };
 
-const TopMenuBar = () => {
+const ZoneController = () => {
   const ViewStatsLeft = useSelector(selectViewStatsLeft);
   const ViewStatsMidUpper = useSelector(selectViewStatsMidUpper);
   const ViewStatsRight = useSelector(selectViewStatsRight);
@@ -79,4 +79,4 @@ const TopMenuBar = () => {
     </Stack>
   );
 };
-export default TopMenuBar;
+export default ZoneController;
