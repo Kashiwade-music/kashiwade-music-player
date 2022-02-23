@@ -36,7 +36,7 @@ const FlexParent = styled.div`
   height: 100vh;
   max-height: 100vh;
 `;
-const FlexTopView = styled.div`
+const FlexTopToolBarAria = styled.div`
   height: 30px;
   display: block;
   flex-grow: 0;
@@ -46,7 +46,7 @@ const FlexTopView = styled.div`
   order: 0;
 `;
 
-const FlexMidView = styled.div`
+const FlexMainAria = styled.div`
   display: block;
   flex-grow: 0;
   flex-shrink: 0;
@@ -56,7 +56,7 @@ const FlexMidView = styled.div`
   height: calc(100% - 80px);
 `;
 
-const FlexMidViewBox = styled.div`
+const FlexMainAriaBox = styled.div`
   height: 100%;
   max-height: 100%;
   display: flex;
@@ -67,7 +67,7 @@ const FlexMidViewBox = styled.div`
   align-content: normal;
 `;
 
-const FlexLeftView = styled.div`
+const FlexLeftZone = styled.div`
   width: 250px;
   display: block;
   flex-grow: 0;
@@ -78,7 +78,7 @@ const FlexLeftView = styled.div`
   height: 100%;
   max-height: 100%;
 `;
-const FlexMainView = styled.div`
+const FlexMainZone = styled.div`
   display: block;
   flex-grow: 1;
   flex-shrink: 1;
@@ -89,7 +89,7 @@ const FlexMainView = styled.div`
   max-height: 100%;
 `;
 
-const FlexMainViewBox = styled.div`
+const FlexMainZoneBox = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -100,7 +100,7 @@ const FlexMainViewBox = styled.div`
   max-height: 100%;
 `;
 
-const FlexMainViewUpperView = styled.div`
+const FlexMainZoneUpperZone = styled.div`
   height: 150px;
   display: block;
   flex-grow: 0;
@@ -110,7 +110,7 @@ const FlexMainViewUpperView = styled.div`
   order: 0;
 `;
 
-const FlexMainViewLowerView = styled.div`
+const FlexMainZoneProjectZone = styled.div`
   display: block;
   flex-grow: 1;
   flex-shrink: 1;
@@ -120,7 +120,7 @@ const FlexMainViewLowerView = styled.div`
   height: calc(100% - 150px);
 `;
 
-const FlexRightView = styled.div`
+const FlexRightZone = styled.div`
   width: 250px;
   display: block;
   flex-grow: 0;
@@ -131,7 +131,7 @@ const FlexRightView = styled.div`
   height: 100%;
   max-height: 100%;
 `;
-const FlexBottomView = styled.div`
+const FlexBottomToolBarAria = styled.div`
   height: 50px;
   display: block;
   flex-grow: 0;
@@ -163,7 +163,7 @@ function App() {
   return (
     <div className="App">
       <FlexParent>
-        <FlexTopView>
+        <FlexTopToolBarAria>
           <Box
             sx={{
               width: "100%",
@@ -175,16 +175,16 @@ function App() {
           >
             <TopMenuBar />
           </Box>
-        </FlexTopView>
-        <FlexMidView>
-          <FlexMidViewBox>
+        </FlexTopToolBarAria>
+        <FlexMainAria>
+          <FlexMainAriaBox>
             <Collapse
               in={ViewStatsLeft}
               timeout="auto"
               unmountOnExit
               orientation="horizontal"
             >
-              <FlexLeftView>
+              <FlexLeftZone>
                 <Box
                   sx={{
                     width: "100%",
@@ -216,12 +216,12 @@ function App() {
                     </Box>
                   </BasicTabsNoHidden>
                 </Box>
-              </FlexLeftView>
+              </FlexLeftZone>
             </Collapse>
-            <FlexMainView>
-              <FlexMainViewBox>
+            <FlexMainZone>
+              <FlexMainZoneBox>
                 <Collapse in={ViewStatsMidUpper} timeout="auto" unmountOnExit>
-                  <FlexMainViewUpperView>
+                  <FlexMainZoneUpperZone>
                     <Box
                       sx={{
                         width: "100%",
@@ -231,9 +231,9 @@ function App() {
                         boxSizing: "border-box",
                       }}
                     ></Box>
-                  </FlexMainViewUpperView>
+                  </FlexMainZoneUpperZone>
                 </Collapse>
-                <FlexMainViewLowerView>
+                <FlexMainZoneProjectZone>
                   <Box
                     sx={{
                       width: "100%",
@@ -259,16 +259,16 @@ function App() {
                       </Box>
                     </BasicTabs>
                   </Box>
-                </FlexMainViewLowerView>
-              </FlexMainViewBox>
-            </FlexMainView>
+                </FlexMainZoneProjectZone>
+              </FlexMainZoneBox>
+            </FlexMainZone>
             <Collapse
               in={ViewStatsRight}
               timeout="auto"
               unmountOnExit
               orientation="horizontal"
             >
-              <FlexRightView>
+              <FlexRightZone>
                 <Box
                   sx={{
                     width: "100%",
@@ -278,11 +278,11 @@ function App() {
                     boxSizing: "border-box",
                   }}
                 ></Box>
-              </FlexRightView>
+              </FlexRightZone>
             </Collapse>
-          </FlexMidViewBox>
-        </FlexMidView>
-        <FlexBottomView>
+          </FlexMainAriaBox>
+        </FlexMainAria>
+        <FlexBottomToolBarAria>
           <Box
             sx={{
               width: "100%",
@@ -290,7 +290,7 @@ function App() {
               backgroundColor: "secondary.dark",
             }}
           ></Box>
-        </FlexBottomView>
+        </FlexBottomToolBarAria>
       </FlexParent>
     </div>
   );
