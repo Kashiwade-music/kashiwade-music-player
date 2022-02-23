@@ -6,20 +6,15 @@ import FolderList from "../../components/FolderList";
 
 import { useSelector, useDispatch } from "react-redux";
 import { selectOpeningDirInTree } from "../../redux/slice/SelectedFolderStatsSlice";
+import { selectMusicDataFolderPath } from "../../redux/slice/ConfigSlice";
 
 const Folder = () => {
-  const OpeningDirInTree = useSelector(selectOpeningDirInTree);
-  const isOpenFunc = (value: string) => {
-    return OpeningDirInTree.includes(value);
-  };
+  const MusicDataFolderPath = useSelector(selectMusicDataFolderPath);
+  console.log(MusicDataFolderPath);
 
-  const [config, setConfig] = useState<api.Config>(initialObj.config);
-  useEffect(() => {
-    getAPI("get_lanch_config", setConfig);
-  }, []);
   return (
     <>
-      {config.musicDataFolderPath.map((item) => {
+      {MusicDataFolderPath.map((item) => {
         return <FolderList dirPath={item} />;
       })}
     </>
